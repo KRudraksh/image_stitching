@@ -19,8 +19,8 @@ from src.matching import (
     find_connected_components,
 )
 from src.rendering import multi_band_blending, set_gain_compensations, simple_blending
-print("Libraries Imported")
 
+print("Libraries imported")
 parser = argparse.ArgumentParser(
     description="Create panoramas from a set of images. \
                  All the images must be in the same directory. \
@@ -69,37 +69,45 @@ image_paths = [
     for filepath in args["data_dir"].iterdir()
     if filepath.suffix.lower() in valid_images_extensions
 ]
+
 images = [Image(path, args.get("size")) for path in image_paths]
+
 print("Images Loaded")
+print("############################")
 logging.info("Found %d images", len(images))
 logging.info("Computing features with SIFT...")
-print("###############################")
-i = 0
+
+i = 1
 for image in images:
-    i = i+1
     image.compute_features()
     print("Features computed: ", i)
+    i = i+1
+print("############################")
+
 
 logging.info("Matching images with features...")
-print("###########################")
+
 matcher = MultiImageMatches(images)
 pair_matches: list[PairMatch] = matcher.get_pair_matches()
 pair_matches.sort(key=lambda pair_match: len(pair_match.matches), reverse=True)
+print("############################")
 
 logging.info("Finding connected components...")
-print("#############################")
+
 connected_components = find_connected_components(pair_matches)
+print("############################")
 
 logging.info("Found %d connected components", len(connected_components))
 logging.info("Building homographies...")
-print("#################################")
+
 build_homographies(connected_components, pair_matches)
+print("############################")
 
 time.sleep(0.1)
 
 logging.info("Computing gain compensations...")
-print("###################################")
-i = 0
+
+i = 1
 for connected_component in connected_components:
     component_matches = [
         pair_match
@@ -113,8 +121,9 @@ for connected_component in connected_components:
         sigma_n=args["gain_sigma_n"],
         sigma_g=args["gain_sigma_g"],
     )
+    print("Gain Compensation iterations: ", i)
     i = i+1
-    print("Gain compensation completed: ", i)
+print("############################")
 
 time.sleep(0.1)
 
@@ -123,7 +132,6 @@ for image in images:
 
 results = []
 
-print("#############################")
 if args["multi_band_blending"]:
     logging.info("Applying multi-band blending...")
     results = [
@@ -142,11 +150,23 @@ else:
         simple_blending(connected_component)
         for connected_component in connected_components
     ]
+print("############################")
 
 logging.info("Saving results to %s", args["data_dir"] / "results")
 
+home_dir = Path.home()
+input_dir_name = args["data_dir"].name
+results_path = home_dir / "results" / input_dir_name
+
+logging.info("Saving results to %s", results_path)
+
 print("######################3")
-(args["data_dir"] / "results").mkdir(exist_ok=True, parents=True)
+results_path.mkdir(exist_ok=True, parents=True)
+
+print("######################3")
+results_path.mkdir(exist_ok=True, parents=True)
 for i, result in enumerate(results):
-    cv2.imwrite(str(args["data_dir"] / "results" / f"pano_{i}.jpg"), result)
-print("Results saved")
+    output_file = results_path / f"pano_{i}.jpg"
+    cv2.imwrite(str(output_file), result)
+    logging.info("Saved panorama: %s", output_file)
+print("Results saved to:", results_path)

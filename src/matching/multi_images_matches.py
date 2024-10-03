@@ -45,7 +45,7 @@ class MultiImageMatches:
             pair_matches: List of pair matches
         """
         pair_matches = []
-        k = 0
+        k = 1
         for i, image_a in enumerate(self.images):
             possible_matches = sorted(
                 self.images[:i] + self.images[i + 1 :],
@@ -57,8 +57,8 @@ class MultiImageMatches:
                     pair_match = PairMatch(image_a, image_b, self.get_matches(image_a, image_b))
                     if pair_match.is_valid():
                         pair_matches.append(pair_match)
+            print("Features Matched: ", k)
             k = k+1
-            print("Features Matched:", k)
         return pair_matches
 
     def compute_matches(self, image_a: Image, image_b: Image) -> list:

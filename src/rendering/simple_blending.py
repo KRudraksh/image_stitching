@@ -72,10 +72,8 @@ def simple_blending(images: list[Image]) -> np.ndarray:
     weights = None
     offset = np.eye(3)
     k = 1
-    print("Number of images", len(images))
     for image in images:
         panorama, offset, weights = add_image(panorama, image, offset, weights)
         print("Blending iterations: ", k)
         k = k+1
-
     return panorama

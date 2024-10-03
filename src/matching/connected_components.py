@@ -15,7 +15,7 @@ def find_connected_components(pair_matches: list[PairMatch]) -> list[list[PairMa
     pair_matches_to_check = pair_matches.copy()
     component_id = 0
     while len(pair_matches_to_check) > 0:
-        print("Pair matches to check:", len(pair_matches_to_check))
+        print("Components left to connect: ", len(pair_matches_to_check))
         pair_match = pair_matches_to_check.pop(0)
         connected_component = {pair_match.image_a, pair_match.image_b}
         size = len(connected_component)

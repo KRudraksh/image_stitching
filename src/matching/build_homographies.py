@@ -17,8 +17,6 @@ def build_homographies(
     """
     i = 1
     for connected_component in connected_components:
-        print("Homographies built: ", i)
-        i = i+1
         component_matches = [
             pair_match for pair_match in pair_matches if pair_match.image_a in connected_component
         ]
@@ -69,3 +67,5 @@ def build_homographies(
                     pair_match.image_a.H = pair_match.image_b.H @ homography
                     images_added.add(pair_match.image_a)
                     break
+        print("Building demographies: ", i)
+        i = i+1
