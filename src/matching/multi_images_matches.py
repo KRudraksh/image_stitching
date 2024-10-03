@@ -58,7 +58,7 @@ class MultiImageMatches:
                     if pair_match.is_valid():
                         pair_matches.append(pair_match)
             k = k+1
-            print("Features Matched:", k))
+            print("Features Matched:", k)
         return pair_matches
 
     def compute_matches(self, image_a: Image, image_b: Image) -> list:
