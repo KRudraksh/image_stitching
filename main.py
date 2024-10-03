@@ -69,9 +69,8 @@ image_paths = [
     for filepath in args["data_dir"].iterdir()
     if filepath.suffix.lower() in valid_images_extensions
 ]
-print("Images Loaded")
 images = [Image(path, args.get("size")) for path in image_paths]
-
+print("Images Loaded")
 logging.info("Found %d images", len(images))
 logging.info("Computing features with SIFT...")
 print("###############################")
