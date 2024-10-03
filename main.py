@@ -153,20 +153,7 @@ else:
 print("############################")
 
 logging.info("Saving results to %s", args["data_dir"] / "results")
-
-home_dir = Path.home()
-input_dir_name = args["data_dir"].name
-results_path = home_dir / "results" / input_dir_name
-
-logging.info("Saving results to %s", results_path)
-
-print("######################3")
-results_path.mkdir(exist_ok=True, parents=True)
-
-print("######################3")
-results_path.mkdir(exist_ok=True, parents=True)
+(args["data_dir"] / "results").mkdir(exist_ok=True, parents=True)
 for i, result in enumerate(results):
-    output_file = results_path / f"pano_{i}.jpg"
-    cv2.imwrite(str(output_file), result)
-    logging.info("Saved panorama: %s", output_file)
-print("Results saved to:", results_path)
+    cv2.imwrite(str(args["data_dir"] / "results" / f"pano_{i}.jpg"), result)
+print("Results saved")
