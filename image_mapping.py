@@ -71,7 +71,7 @@ def resize_image(image_path, width, height):
     return ImageTk.PhotoImage(img)
 
 # Paths to the images
-image_path_left = "bdpl.png"  # Update this with the left image path
+image_path_left = "assets/bdpl.png"  # Update this with the left image path
 # image_path_right = "wwf.png"  # Update this with the right image path
 
 # Resize images
