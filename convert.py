@@ -48,7 +48,7 @@ def main():
         video_name = os.path.splitext(os.path.basename(video_path))[0]
 
         # Set output folder name same as video name
-        output_folder = video_name
+        output_folder = 'log_' + video_name
 
         # Call the function to extract frames for each video
         extract_images_from_video(video_path, output_folder)

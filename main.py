@@ -28,6 +28,13 @@ parser = argparse.ArgumentParser(
 )
 
 parser.add_argument(dest="data_dir", type=Path, help="directory containing the images")
+
+parser.add_argument(
+    "destination",
+    type=Path,
+    help="Destination folder where the results will be saved",
+)
+
 parser.add_argument(
     "-mbb",
     "--multi-band-blending",
@@ -152,8 +159,9 @@ else:
     ]
 print("############################")
 
-logging.info("Saving results to %s", args["data_dir"] / "results")
-(args["data_dir"] / "results").mkdir(exist_ok=True, parents=True)
+destination_folder = args["destination"]
+logging.info("Saving results to %s", destination_folder)
+destination_folder.mkdir(exist_ok=True, parents=True)
 for i, result in enumerate(results):
-    cv2.imwrite(str(args["data_dir"] / "results" / f"pano_{i}.jpg"), result)
+    cv2.imwrite(str(destination_folder / f"pano_{i}.jpg"), result)
 print("Results saved")

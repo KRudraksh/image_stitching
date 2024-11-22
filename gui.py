@@ -20,8 +20,9 @@ def start_process():
         return
 
     video_name_only = os.path.basename(video_path).rsplit(".", 1)[0]
-    output_folder = Path(video_name_only)
+    output_folder = Path(f"log_{video_name_only}") 
     compressed_folder = output_folder / "compressed_data"
+    destination_folder = Path(f"results_{video_name_only}")
 
     # Update status display
     def update_status(step):
@@ -42,7 +43,7 @@ def start_process():
 
         # Step 3: Execute main.py
         update_status("Creating map...")
-        subprocess.run(["python", "main.py", str(compressed_folder)], check=True)
+        subprocess.run(["python", "main.py", str(compressed_folder), str(destination_folder)], check=True)
 
         update_status("Process completed successfully!")
         messagebox.showinfo("Success", "Process completed successfully!")
