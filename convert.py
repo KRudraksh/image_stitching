@@ -39,19 +39,15 @@ def main():
     # Set up argument parser
     parser = argparse.ArgumentParser(description="Extract frames from multiple videos.")
     parser.add_argument("video_paths", nargs='+', help="Paths to the input video files")
+    parser.add_argument("--output_folder", required=True, help="Path to the output folder for extracted images")
 
     args = parser.parse_args()
 
     # Loop over each video provided
     for video_path in args.video_paths:
-        # Extract video name without extension
-        video_name = os.path.splitext(os.path.basename(video_path))[0]
-
-        # Set output folder name same as video name
-        output_folder = 'log_' + video_name
 
         # Call the function to extract frames for each video
-        extract_images_from_video(video_path, output_folder)
+        extract_images_from_video(video_path, args.output_folder)
 
 if __name__ == "__main__":
     main()
