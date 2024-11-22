@@ -63,36 +63,15 @@ root.title("Image Mapping Software")
 root.geometry("800x600")  # Set window size to 800x600 pixels
 
 
-# Load and resize the images to display at the top left and top right
-def resize_image(image_path, width, height):
-    # Open the image and resize it
-    img = Image.open(image_path)
-    img = img.resize((width, height))
-    return ImageTk.PhotoImage(img)
-
-# Paths to the images
-image_path_left = "assets/bdpl.png"  # Update this with the left image path
-# image_path_right = "wwf.png"  # Update this with the right image path
-
-# Resize images
-image_left_resized = resize_image(image_path_left, 140, 60)  # Resize to 100x100 (adjust as needed)
-# image_right_resized = resize_image(image_path_right, 160, 90)  # Resize to 100x100 (adjust as needed)
-
-# Display the resized images
-image_label_left = tk.Label(root, image=image_left_resized)
-image_label_left.place(x=10, y=10)  # Position the image at the top left
-
-# image_label_right = tk.Label(root, image=image_right_resized)
-# image_label_right.place(x=700, y=10)  # Position the image at the top right (adjust x value as needed)
-
-
 video_name = tk.StringVar(value="Name: Not selected")
 video_size = tk.StringVar(value="Size: Not available")
 status = tk.StringVar(value="Status: Waiting for user input...")
 video_path = ""
 
 # Layout
-tk.Label(root, text="Image Mapping Software", font=("Helvetica", 20)).pack(pady=20)
+tk.Label(root, text="IMAGE MAPPING", font=("Helvetica", 20)).pack(pady=20)
+tk.Label(root, text="Bombay Dynamics - WWF India", font=("Helvetica", 14)).pack(pady=5)  # New text line
+
 
 tk.Button(root, text="Select Video", command=select_video, width=20).pack(pady=10)
 tk.Label(root, textvariable=video_name, font=("Helvetica", 14)).pack(pady=5)
